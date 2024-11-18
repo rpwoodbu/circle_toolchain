@@ -14,3 +14,9 @@ cc_binary(
     srcs = ["string_view.cc"],
     deps = ["@std2"],
 )
+
+cc_binary(
+    name = "box",
+    srcs = ["box.cc"],
+    deps = ["@std2"],
+)
