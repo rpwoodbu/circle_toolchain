@@ -1,0 +1,22 @@
+module(name = "circle_toolchain", version = "0.0.0")
+
+bazel_dep(name = "rules_cc", version = "0.1.0")
+
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "circle-cpp",
+    urls = ["https://www.circle-lang.org/linux/build_224.tgz"],
+    integrity = "sha256-00wQFK88wEzc313L8Aj2AW2iD9fDpNOc1b/FisDpq7k=",
+    build_file = "//toolchains:circle.BUILD",
+)
+
+http_archive(
+    name = "std2",
+    urls = ["https://github.com/cppalliance/safe-cpp/archive/889685274438ca20344d4d9cb472e4392c4e35a9.tar.gz"],
+    integrity = "sha256-9AD6f5fhybmGAPzMZqjp6jSuBBzZej7DwBlnd1Lzw28=",
+    strip_prefix = "safe-cpp-889685274438ca20344d4d9cb472e4392c4e35a9",
+    build_file = "//toolchains:std2.BUILD",
+)
+
+register_toolchains("//toolchains:circle")

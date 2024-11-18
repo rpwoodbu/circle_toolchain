@@ -1,0 +1,25 @@
+#!/bin/bash -eu
+
+args=()
+dot_d=()
+
+for arg in "$@"; do
+  case "${arg}" in
+    # TODO: Figure out how to disable the feature `random_seed` without
+    # resorting to `--features`, which won't work if another repo takes this
+    # toolchain definition as a dep.
+    -frandom-seed=*)
+      continue ;;
+    *.d)
+      dot_d+=("${arg}") ;;
+    *)
+      args+=("${arg}") ;;
+  esac
+done
+
+external/_main~_repo_rules~circle-cpp/circle "${args[@]}"
+
+# Add trailing newline to .d files.
+for d in "${dot_d[@]}"; do
+  echo >> "${d}"
+done
